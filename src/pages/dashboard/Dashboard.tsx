@@ -4,15 +4,11 @@ import { LayoutBase } from '../../shared/layouts';
 
 export const Dashboard = () =>{
     return (
-        <LayoutBase 
+        <LayoutBase
             tituloHeader='Página Inicial'
             barraFerramentas=
                 {(
                     <FerramentaDetalhe mostrarBotaoSalvarFechar/>
-                    // <FerramentaListagem 
-                    //     mostrarInputBusca 
-                    //     textoNovoBotao='Adicionar'>                    
-                    // </FerramentaListagem>
                 )}>
             Testando
         </LayoutBase>
