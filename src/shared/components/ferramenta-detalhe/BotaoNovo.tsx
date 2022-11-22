@@ -1,33 +1,35 @@
 import { Button, Icon, Skeleton, Typography } from '@mui/material';
 import { IBotaoFerramentaDetalheProps } from '../../interfaces/barra-ferramentas/ferramenta-detalhe';
 
-export const BotaoSalvar: React.FC<IBotaoFerramentaDetalheProps> = ({
+export const BotaoNovo: React.FC<IBotaoFerramentaDetalheProps> = ({
+    textoBotao,
     mostrarBotao,
     mostrarBotaoCarregando,
+    smDown,
     onClick
 }) => {
     return (
         <>
             {
-                (mostrarBotao && !mostrarBotaoCarregando) &&
+                (mostrarBotao && !mostrarBotaoCarregando && !smDown) &&
                 (<Button
                     color='primary'
                     disableElevation
-                    variant='contained'
+                    variant='outlined'
                     onClick={onClick}
-                    endIcon={<Icon>save</Icon>}
+                    endIcon={<Icon>add</Icon>}
                 >
                     <Typography
                         variant='button'
                         whiteSpace='nowrap'
                         textOverflow='ellipsis'
                         overflow='hidden'>
-                            Salvar
+                        {textoBotao}
                     </Typography>
                 </Button>)
             }
             {
-                mostrarBotaoCarregando && (<Skeleton width={110} height={60}/>)
+                (mostrarBotaoCarregando && !smDown) && (<Skeleton width={110} height={60}/>)
             }
         </>
     );

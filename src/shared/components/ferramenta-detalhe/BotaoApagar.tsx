@@ -1,7 +1,7 @@
 import { Button, Icon, Skeleton, Typography } from '@mui/material';
 import { IBotaoFerramentaDetalheProps } from '../../interfaces/barra-ferramentas/ferramenta-detalhe';
 
-export const BotaoSalvar: React.FC<IBotaoFerramentaDetalheProps> = ({
+export const BotaoApagar: React.FC<IBotaoFerramentaDetalheProps> = ({
     mostrarBotao,
     mostrarBotaoCarregando,
     onClick
@@ -13,16 +13,16 @@ export const BotaoSalvar: React.FC<IBotaoFerramentaDetalheProps> = ({
                 (<Button
                     color='primary'
                     disableElevation
-                    variant='contained'
+                    variant='outlined'
                     onClick={onClick}
-                    endIcon={<Icon>save</Icon>}
+                    endIcon={<Icon>delete</Icon>}
                 >
                     <Typography
                         variant='button'
                         whiteSpace='nowrap'
                         textOverflow='ellipsis'
                         overflow='hidden'>
-                            Salvar
+                            Apagar
                     </Typography>
                 </Button>)
             }
