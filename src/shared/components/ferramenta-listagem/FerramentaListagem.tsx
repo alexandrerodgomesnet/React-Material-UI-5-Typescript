@@ -1,7 +1,8 @@
 import { Box, Button, Icon, Paper, TextField, useTheme } from '@mui/material';
+import { Environment } from '../../enviroments';
 import { IFerramentaListagemProps } from '../../interfaces';
 
-export const FerramentaListagem: React.FC<IFerramentaListagemProps> = ({    
+export const FerramentaListagem: React.FC<IFerramentaListagemProps> = ({
     textoBusca,
     mostrarInputBusca = false,
     aoMudarTextoBusca,
@@ -11,7 +12,7 @@ export const FerramentaListagem: React.FC<IFerramentaListagemProps> = ({
 }) => {
     const theme = useTheme();
     return (
-        <Box 
+        <Box
             gap={1}
             marginX={1}
             padding={1}
@@ -22,11 +23,11 @@ export const FerramentaListagem: React.FC<IFerramentaListagemProps> = ({
             component={Paper}
         >
             {mostrarInputBusca && (
-                <TextField 
+                <TextField
                     size='small'
                     value={textoBusca}
                     onChange={(e) => aoMudarTextoBusca?.(e.target.value)}
-                    placeholder='Pesquisar...'
+                    placeholder={Environment.INPUT_BUSCA}
                 />
             )}
 
