@@ -1,3 +1,5 @@
+export * from './Context';
+
 export * from './LayoutBase/ILayoutBase';
 export * from './Menu-Lateral/IListItemLinkProps';
 export * from './Menu-Lateral/IAppDrawerProviderProps';
