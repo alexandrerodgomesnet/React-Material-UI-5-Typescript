@@ -14,5 +14,11 @@ export const Environment = {
     /**
      * Url Base de consulta ao back-end...
      */
-    URL_BASE: 'http://localhost:3333'
+    URL_BASE: 'http://localhost:3333',
+
+    ERRO_AO_LISTAR: 'Erro ao listar os registros...',
+    ERRO_AO_CONSULTAR: 'Erro ao consultar o registro...',
+    ERRO_AO_CRIAR: 'Erro ao criar o registro...',
+    ERRO_AO_ATUALIZAR: 'Erro ao atualizar o registro...',
+    ERRO_AO_EXCLUIR: 'Erro ao excluir o registro...',
 };

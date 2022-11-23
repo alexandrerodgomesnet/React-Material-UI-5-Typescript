@@ -4,7 +4,7 @@ import { getBreakPointsDown } from '../../utils/util';
 import { BotaoApagar } from './BotaoApagar';
 import { BotaoNovo } from './BotaoNovo';
 import { BotaoSalvar } from './BotaoSalvar';
-import { BotaoSalvarVoltar } from './BotaoSalvarVoltar';
+import { BotaoSalvarFechar } from './BotaoSalvarFechar';
 import { BotaoVoltar } from './BotaoVoltar';
 import { DividerBotao } from './DividerBotao';
 
@@ -48,7 +48,7 @@ export const FerramentaDetalhe: React.FC<IFerramentaDetalheProps> = ({
                 onClick={aoClicarEmSalvar}
             />
 
-            <BotaoSalvarVoltar
+            <BotaoSalvarFechar
                 mostrarBotao={mostrarBotaoSalvarFechar}
                 mostrarBotaoCarregando={mostrarBotaoSalvarFecharCarregando}
                 onClick={aoClicarEmSalvarFechar}
