@@ -10,7 +10,7 @@ export const Dashboard = () =>{
                 {(
                     <FerramentaDetalhe mostrarBotaoSalvarFechar/>
                 )}>
-            Testando
+            Página Inicial
         </LayoutBase>
     );
 };
