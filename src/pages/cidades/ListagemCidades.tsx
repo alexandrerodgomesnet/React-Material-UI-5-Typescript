@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, TableFooter, LinearProgress } from '@mui/material';
 
 import { FerramentaListagem } from '../../shared/components';
 import { useDebounce } from '../../shared/hooks';
 import { IListagemCidade } from '../../shared/interfaces';
 import { LayoutBase } from '../../shared/layouts';
 import { CidadesService } from '../../shared/services/api/cidades/CidadesService';
+import { Environment } from '../../shared/enviroments';
 
 
 export const ListagemCidades: React.FC = () => {
@@ -72,6 +73,22 @@ export const ListagemCidades: React.FC = () => {
                             ))
                         }
                     </TableBody>
+                    {
+                        totalCount === 0 &&
+                        !isLoading &&
+                        (<caption>{Environment.LISTAGEM_VAZIA}</caption>)
+                    }
+                    <TableFooter>
+                        {
+                            isLoading &&(
+                                <TableRow>
+                                    <TableCell colSpan={3}>
+                                        <LinearProgress variant='indeterminate' />
+                                    </TableCell>
+                                </TableRow>
+                            )
+                        }
+                    </TableFooter>
                 </Table>
             </TableContainer>
         </LayoutBase>
