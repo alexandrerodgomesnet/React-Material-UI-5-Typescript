@@ -1,4 +1,4 @@
-export interface IListagemPessoa {
+export interface IListagemCidade {
     id: number,
     email: string,
     cidadeId: number,

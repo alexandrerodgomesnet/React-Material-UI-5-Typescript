@@ -1,9 +1,9 @@
 import { Environment } from '../../../enviroments';
-import { IDetalhePessoa, IPessoComTotalCount } from '../../../interfaces';
+import { IDetalheCidade, ICidadeComTotalCount } from '../../../interfaces';
 import { Api } from '../axios-config';
 
 
-const Listar = async(page = 1, filter = ''): Promise<IPessoComTotalCount | Error> => {
+const Listar = async(page = 1, filter = ''): Promise<ICidadeComTotalCount | Error> => {
     const limiteLinhas = Environment.LIMITE_LINHAS;
     const erroAoListar = Environment.ERRO_AO_LISTAR;
 
@@ -27,13 +27,13 @@ const Listar = async(page = 1, filter = ''): Promise<IPessoComTotalCount | Error
     }
 };
 
-const ObterPorId = async(id: number): Promise<IDetalhePessoa | Error> => {
+const ObterPorId = async(id: number): Promise<IDetalheCidade | Error> => {
     const erroAoConsultar = Environment.ERRO_AO_LISTAR;
 
     try{
         const url = `/pessoas/${id}`;
 
-        const { data } = await Api.get<IDetalhePessoa>(url);
+        const { data } = await Api.get<IDetalheCidade>(url);
 
         if(data)
             return data;
@@ -46,11 +46,11 @@ const ObterPorId = async(id: number): Promise<IDetalhePessoa | Error> => {
     }
 };
 
-const Criar = async(dados: Omit<IDetalhePessoa, 'id'>): Promise<number | Error> => {
+const Criar = async(dados: Omit<IDetalheCidade, 'id'>): Promise<number | Error> => {
     const erroAoCriar = Environment.ERRO_AO_CRIAR;
 
     try{
-        const { data } = await Api.post<IDetalhePessoa>('/pessoas', dados);
+        const { data } = await Api.post<IDetalheCidade>('/pessoas', dados);
 
         if(data)
             return data.id;
@@ -63,11 +63,11 @@ const Criar = async(dados: Omit<IDetalhePessoa, 'id'>): Promise<number | Error> 
     }
 };
 
-const Atualizar = async(id: number, dados: IDetalhePessoa): Promise<void | Error> => {
+const Atualizar = async(id: number, dados: IDetalheCidade): Promise<void | Error> => {
 
     try{
         const url = `/pessoas/${id}`;
-        await Api.put<IDetalhePessoa>(url, dados);
+        await Api.put<IDetalheCidade>(url, dados);
     }
     catch(error){
         console.error(error);
@@ -78,7 +78,7 @@ const Atualizar = async(id: number, dados: IDetalhePessoa): Promise<void | Error
 const Excluir = async(id: number): Promise<void | Error> => {
     try{
         const url = `/pessoas/${id}`;
-        await Api.delete<IDetalhePessoa>(url);
+        await Api.delete<IDetalheCidade>(url);
     }
     catch(error){
         console.error(error);
