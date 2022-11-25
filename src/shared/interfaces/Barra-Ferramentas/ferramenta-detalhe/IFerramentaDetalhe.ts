@@ -1,4 +1,5 @@
 export interface IFerramentaDetalheProps {
+    children?: string | never[];
     textoBotaoNovo?: string;
     mostrarBotaoNovo?: boolean;
     mostrarBotaoVoltar?: boolean;
@@ -11,7 +12,7 @@ export interface IFerramentaDetalheProps {
     mostrarBotaoApagarCarregando?: boolean;
     mostrarBotaoSalvarCarregando?: boolean;
     mostrarBotaoSalvarFecharCarregando?: boolean;
-
+    
     aoClicarEmNovo?: () => void;
     aoClicarEmVoltar?: () => void;
     aoClicarEmApagar?: () => void;

@@ -1,9 +1,9 @@
-import { Avatar, Box, Divider, Drawer, Icon, List,
-    ListItemButton, ListItemIcon, ListItemText, useMediaQuery,
+import { Avatar, Box, Divider, Drawer, Icon, List, 
+    ListItemButton, ListItemIcon, ListItemText, useMediaQuery, 
     useTheme } from '@mui/material';
-import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
 import { useAppThemeContext, useDrawerContext } from '../../context';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { IAppDrawerProviderProps, IListItemLinkProps } from '../../interfaces';
 
 const ListItemLink: React.FC<IListItemLinkProps> = ({ label, icon, to, onClick }) => {
@@ -15,7 +15,7 @@ const ListItemLink: React.FC<IListItemLinkProps> = ({ label, icon, to, onClick }
 
     const handleClick = () => {
         navigate(to);
-        onClick?.();
+        onClick?.();        
     };
 
     return(
@@ -40,7 +40,7 @@ export const MenuLateral: React.FC<IAppDrawerProviderProps> = ({ children }) => 
             <Drawer open={isDrawerOpen} variant={ smDown ?  'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
                 <Box width={theme.spacing(28)} height='100%' display='flex' flexDirection='column'>
                     <Box width='100%' height={theme.spacing(20)} display='flex' alignItems='center' justifyContent='center'>
-                        <Avatar sx={{height: theme.spacing(12), width: theme.spacing(12)}}
+                        <Avatar sx={{height: theme.spacing(12), width: theme.spacing(12)}} 
                             src=''/>
                     </Box>
                     <Divider />
@@ -48,11 +48,11 @@ export const MenuLateral: React.FC<IAppDrawerProviderProps> = ({ children }) => 
                         <List component='nav'>
                             {
                                 drawerOptions.map(drawerOption => (
-                                    <ListItemLink
+                                    <ListItemLink 
                                         key={drawerOption.path}
-                                        label={drawerOption.label}
-                                        to={drawerOption.path}
-                                        icon={drawerOption.icon}
+                                        label={drawerOption.label} 
+                                        to='/pagina-inicial' 
+                                        icon={drawerOption.icon} 
                                         onClick={ smDown ? toggleDrawerOpen : undefined }/> ))
                             }
                         </List>
