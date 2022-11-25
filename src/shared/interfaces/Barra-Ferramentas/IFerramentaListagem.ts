@@ -1,5 +1,4 @@
 export interface IFerramentaListagemProps {
-    children: string | never[];
     textoBusca?: string;
     mostrarInputBusca?: boolean;
     aoMudarTextoBusca?: (novoTexto: string) => void;

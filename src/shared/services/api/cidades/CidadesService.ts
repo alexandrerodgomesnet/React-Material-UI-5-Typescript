@@ -86,7 +86,7 @@ const Excluir = async(id: number): Promise<void | Error> => {
     }
 };
 
-export const PessoasService = {
+export const CidadesService = {
     Listar,
     ObterPorId,
     Criar,

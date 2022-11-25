@@ -1,12 +1,12 @@
 import { Box, Icon, IconButton, useTheme } from '@mui/material';
-import { useDrawerContext } from '../context';
+import { UseDrawerContext } from '../context';
 import { IMenuLateralBaseProps } from '../interfaces/LayoutBase';
 import { HeaderBase } from './HeaderBase';
 
 export const MenuLateralBase: React.FC<IMenuLateralBaseProps> = ({titulo, smDown, mdDown}) => {
 
     const theme = useTheme();
-    const { toggleDrawerOpen } = useDrawerContext();
+    const { toggleDrawerOpen } = UseDrawerContext();
 
     const getSpacingBox = (): number => {
         if(smDown)

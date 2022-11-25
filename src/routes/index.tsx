@@ -1,56 +1,40 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Dashboard } from '../pages/dashboard/Dashboard';
-import { useDrawerContext } from '../shared/context';
+import { ListagemCidades, Dashboard } from '../pages';
+import { UseDrawerContext } from '../shared/context';
 
-<<<<<<< HEAD
-import { ListagemPessoas, Dashboard } from '../pages';
+const routes = [
+    {
+        icon: 'home',
+        path: '/pagina-inicial',
+        label: 'Página Inicial',
+    },
+    {
+        icon: 'location_city',
+        path: '/cidades',
+        label: 'Cidades',
+    }
+];
 
-=======
->>>>>>> parent of a5ba968 (Ajustes, refatoração e listagem de cidades.)
 export const AppRoutes = () => {
-    const { setDrawerOptions } = useDrawerContext();
+    const { setDrawerOptions } = UseDrawerContext();
 
     useEffect(() => {
-<<<<<<< HEAD
-        setDrawerOptions([
-            {
-                icon: 'home',
-                path: '/pagina-inicial',
-                label: 'Página Inicial',
-            },
-            {
-                icon: 'people',
-                path: '/pessoas',
-                label: 'Pessoas',
-            },
-            // {
-            //     icon: 'location_city',
-            //     path: '/cidades',
-            //     label: 'Cidades',
-            // }
-        ]);
-=======
-        setDrawerOptions([{
-            label: 'Página Inicial',
-            icon: 'home',
-            path: '/pagina-inicial'
-        }]);
->>>>>>> parent of a5ba968 (Ajustes, refatoração e listagem de cidades.)
+        const routing = () =>{
+            setDrawerOptions(routes);
+        };
+
+        routing();
+
     }, []);
 
     return (
         <Routes>
-            <Route path='/home' element={<Dashboard/>} />
-
-<<<<<<< HEAD
-            <Route path='/pessoas' element={<ListagemPessoas/>} />
+            <Route path='/pagina-inicial' element={<Dashboard/>} />
+            <Route path='/cidades' element={<ListagemCidades/>} />
             {/* <Route path='/pessoas/detalhe/:id' element={<ListagemPessoas/>} /> */}
 
             <Route path='*' element={<Navigate to='/pagina-inicial' />} />
-=======
-            <Route path='*' element={<Navigate to='/home' />} />
->>>>>>> parent of a5ba968 (Ajustes, refatoração e listagem de cidades.)
         </Routes>
     );
 };
