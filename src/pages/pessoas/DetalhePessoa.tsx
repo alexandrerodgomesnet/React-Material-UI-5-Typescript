@@ -1,20 +1,25 @@
 import { LinearProgress } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FerramentaDetalhe } from '../../shared/components';
 import { LayoutBase } from '../../shared/layouts';
 import { PessoaService } from '../../shared/services/api/pessoa/PessoaService';
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 import { VTextField } from '../../shared/forms';
+import { IFormPessoa } from '../../shared/interfaces';
 
 export const DetalhePessoa: React.FC = () => {
     const { id = 'inserir'} = useParams<'id'>();
     const navigate = useNavigate();
+    const formRef = useRef<FormHandles>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [nome, setNome] = useState('');
-    const tituloHeader = id === 'inserir' ? 'Inserir Pessoa' : `Editar ${nome}`;
 
     const inserirRegistro = id === 'inserir';
+    const tituloHeader = inserirRegistro ? 'Inserir Pessoa' : `Editar ${nome}`;
+
+
 
     useEffect(() =>{
         if(!inserirRegistro){
@@ -29,13 +34,39 @@ export const DetalhePessoa: React.FC = () => {
                     else{
                         setNome(result.nomeCompleto);
                         console.log(result);
+                        formRef.current?.setData(result);
                     }
                 });
         }
     }, [id]);
 
-    const handleSalvar = () => {
-        console.log('salvar');
+    const handleSalvar = (dados: IFormPessoa) => {
+        console.log(dados);
+        setIsLoading(true);
+
+        if(inserirRegistro){
+            PessoaService.Criar(dados)
+                .then(result =>{
+                    setIsLoading(false);
+                    if(result instanceof Error){
+                        alert(result.message);
+                    }
+                    else{
+                        navigate(`/pessoas/detalhe/${result}`);
+                    }
+                });
+        }
+        else{
+            PessoaService.Atualizar(Number(id), { id: Number(id), ...dados })
+                .then(result =>{
+                    setIsLoading(false);
+                    if(result instanceof Error){
+                        alert(result.message);
+                    }
+                });
+        }
+
+
     };
 
     const handleApagar = (id: number) => {
@@ -62,8 +93,8 @@ export const DetalhePessoa: React.FC = () => {
                     mostrarBotaoNovo={id !== 'inserir'}
                     mostrarBotaoApagar={id !== 'inserir'}
 
-                    aoClicarEmSalvar={handleSalvar}
-                    aoClicarEmSalvarFechar={handleSalvar}
+                    aoClicarEmSalvar={() => formRef.current?.submitForm()}
+                    aoClicarEmSalvarFechar={() => formRef.current?.submitForm()}
                     aoClicarEmApagar={() => handleApagar(Number(id))}
                     aoClicarEmNovo={() => navigate('/pessoas/detalhe/inserir')}
                     aoClicarEmVoltar={() => navigate('/pessoas')}
@@ -73,9 +104,10 @@ export const DetalhePessoa: React.FC = () => {
             {
                 isLoading && (<LinearProgress variant='indeterminate' />)
             }
-            <Form onSubmit={(dados) => console.log(dados)}>
-                <VTextField name='nomeCompleto'/>
-                <button type='submit'>Enviar</button>
+            <Form ref={formRef} onSubmit={handleSalvar}>
+                <VTextField placeholder='Nome COmpleto' name='nomeCompleto'/>
+                <VTextField placeholder='Email' name='email'/>
+                <VTextField placeholder='Cidade Id' name='cidadeId'/>
             </Form>
         </LayoutBase>
     );
