@@ -1,4 +1,4 @@
-export interface IDetalheCidade {
+export interface IDetalhePessoa {
     id: number,
     email: string,
     cidadeId: number,

@@ -10,7 +10,7 @@ export const LayoutBase: React.FC<ILayoutBaseProps> = (
     const mdDown = getBreakPointsDown('md');
 
     return (
-        <Box height='100%' display='flex' flexDirection='column' gap={1}>
+        <Box height='100%' flexDirection='column' gap={1}>
             <MenuLateralBase titulo={tituloHeader} smDown={smDown} mdDown={mdDown} />
             {
                 barraFerramentas && (
