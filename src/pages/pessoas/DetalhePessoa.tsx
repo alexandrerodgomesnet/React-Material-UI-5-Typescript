@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FerramentaDetalhe } from '../../shared/components';
 import { LayoutBase } from '../../shared/layouts';
 import { PessoaService } from '../../shared/services/api/pessoa/PessoaService';
+import { Form } from '@unform/web';
+import { VTextField } from '../../shared/forms';
 
 export const DetalhePessoa: React.FC = () => {
     const { id = 'inserir'} = useParams<'id'>();
@@ -71,6 +73,10 @@ export const DetalhePessoa: React.FC = () => {
             {
                 isLoading && (<LinearProgress variant='indeterminate' />)
             }
+            <Form onSubmit={(dados) => console.log(dados)}>
+                <VTextField name='nomeCompleto'/>
+                <button type='submit'>Enviar</button>
+            </Form>
         </LayoutBase>
     );
 };
