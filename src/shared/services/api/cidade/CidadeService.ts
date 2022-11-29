@@ -1,14 +1,14 @@
 import { Environment } from '../../../enviroments';
-import { IDetalhePessoa, IPessoaComTotalCount } from '../../../interfaces';
+import { IDetalheCidade, ICidadeComTotalCount } from '../../../interfaces';
 import { Api } from '../axios-config';
 
 
-const Listar = async(page = 1, filter = ''): Promise<IPessoaComTotalCount | Error> => {
+const Listar = async(page = 1, filter = ''): Promise<ICidadeComTotalCount | Error> => {
     const limiteLinhas = Environment.LIMITE_LINHAS;
     const erroAoListar = Environment.ERRO_AO_LISTAR;
 
     try{
-        const url = `/pessoas?_page=${page}&_limit=${limiteLinhas}&nomeCompleto_like=${filter}`;
+        const url = `/cidades?_page=${page}&_limit=${limiteLinhas}&descricao_like=${filter}`;
 
         const { data, headers } = await Api.get(url);
 
@@ -27,11 +27,11 @@ const Listar = async(page = 1, filter = ''): Promise<IPessoaComTotalCount | Erro
     }
 };
 
-const ObterPorId = async(id: number): Promise<IDetalhePessoa | Error> => {
+const ObterPorId = async(id: number): Promise<IDetalheCidade | Error> => {
     const erroAoConsultar = Environment.ERRO_AO_LISTAR;
 
     try{
-        const { data } = await Api.get<IDetalhePessoa>(`/pessoas/${id}`);
+        const { data } = await Api.get<IDetalheCidade>(`/cidades/${id}`);
 
         if(data)
             return data;
@@ -44,11 +44,11 @@ const ObterPorId = async(id: number): Promise<IDetalhePessoa | Error> => {
     }
 };
 
-const Criar = async(dados: Omit<IDetalhePessoa, 'id'>): Promise<number | Error> => {
+const Criar = async(dados: Omit<IDetalheCidade, 'id'>): Promise<number | Error> => {
     const erroAoCriar = Environment.ERRO_AO_CRIAR;
 
     try{
-        const { data } = await Api.post<IDetalhePessoa>('/pessoas', dados);
+        const { data } = await Api.post<IDetalheCidade>('/cidades', dados);
 
         if(data)
             return data.id;
@@ -61,10 +61,10 @@ const Criar = async(dados: Omit<IDetalhePessoa, 'id'>): Promise<number | Error> 
     }
 };
 
-const Atualizar = async(id: number, dados: IDetalhePessoa): Promise<void | Error> => {
+const Atualizar = async(id: number, dados: IDetalheCidade): Promise<void | Error> => {
 
     try{
-        await Api.put<IDetalhePessoa>(`/pessoas/${id}`, dados);
+        await Api.put<IDetalheCidade>(`/cidades/${id}`, dados);
     }
     catch(error){
         console.error(error);
@@ -74,7 +74,7 @@ const Atualizar = async(id: number, dados: IDetalhePessoa): Promise<void | Error
 
 const Excluir = async(id: number): Promise<void | Error> => {
     try{
-        await Api.delete<IDetalhePessoa>(`/pessoas/${id}`);
+        await Api.delete<IDetalheCidade>(`/cidades/${id}`);
     }
     catch(error){
         console.error(error);
@@ -82,7 +82,7 @@ const Excluir = async(id: number): Promise<void | Error> => {
     }
 };
 
-export const PessoaService = {
+export const CidadeService = {
     Listar,
     ObterPorId,
     Criar,
