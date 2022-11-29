@@ -90,5 +90,15 @@
       "email": "ale@ale.com",
       "cidadeId": "13"
     }
+  ],
+  "cidades": [
+    {
+      "id": 1,
+      "descricao": "Itanhaém"
+    },
+    {
+      "descricao": "Arujá",
+      "id": 2
+    }
   ]
 }
