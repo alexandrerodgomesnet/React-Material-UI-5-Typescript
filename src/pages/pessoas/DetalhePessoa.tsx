@@ -1,25 +1,29 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FerramentaDetalhe } from '../../shared/components';
 import { LayoutBase } from '../../shared/layouts';
 import { PessoaService } from '../../shared/services/api/pessoa/PessoaService';
-import { Form } from '@unform/web';
-import { FormHandles } from '@unform/core';
-import { VTextField } from '../../shared/forms';
-import { IFormPessoa } from '../../shared/interfaces';
+import { VTextField, VForm } from '../../shared/forms';
+import { IFormPessoa, IVFormErrors } from '../../shared/interfaces';
+import { useVForm } from '../../shared/hooks';
+import * as yup from 'yup';
 
 export const DetalhePessoa: React.FC = () => {
     const { id = 'inserir'} = useParams<'id'>();
     const navigate = useNavigate();
-    const formRef = useRef<FormHandles>(null);
+    const { formRef, salvar, salvarFechar, ehSalvarFechar } = useVForm();
     const [isLoading, setIsLoading] = useState(false);
     const [nome, setNome] = useState('');
 
     const inserirRegistro = id === 'inserir';
     const tituloHeader = inserirRegistro ? 'Inserir Pessoa' : `Editar ${nome}`;
 
-
+    const formValidationSchema: yup.SchemaOf<IFormPessoa> = yup.object().shape({
+        nomeCompleto: yup.string().required().min(3),
+        email: yup.string().required().email(),
+        cidadeId: yup.number().required()
+    });
 
     useEffect(() =>{
         if(!inserirRegistro){
@@ -38,35 +42,63 @@ export const DetalhePessoa: React.FC = () => {
                     }
                 });
         }
+        else{
+            formRef.current?.setData({
+                nomeCompleto: '',
+                email: '',
+                cidadeId: ''
+            });
+        }
     }, [id]);
 
     const handleSalvar = (dados: IFormPessoa) => {
         console.log(dados);
         setIsLoading(true);
 
-        if(inserirRegistro){
-            PessoaService.Criar(dados)
-                .then(result =>{
-                    setIsLoading(false);
-                    if(result instanceof Error){
-                        alert(result.message);
-                    }
-                    else{
-                        navigate(`/pessoas/detalhe/${result}`);
-                    }
-                });
-        }
-        else{
-            PessoaService.Atualizar(Number(id), { id: Number(id), ...dados })
-                .then(result =>{
-                    setIsLoading(false);
-                    if(result instanceof Error){
-                        alert(result.message);
-                    }
-                });
-        }
+        formValidationSchema
+            .validate(dados, { abortEarly: false })
+            .then((dadosValidos) => {
+                if(inserirRegistro){
+                    PessoaService
+                        .Criar(dadosValidos)
+                        .then(result =>{
+                            setIsLoading(false);
+                            if(result instanceof Error){
+                                alert(result.message);
+                            }
+                            else{
+                                if(ehSalvarFechar())
+                                    navigate('/pessoas');
+                                else
+                                    navigate(`/pessoas/detalhe/${result}`);
+                            }
+                        });
+                }
+                else{
+                    PessoaService
+                        .Atualizar(Number(id), { id: Number(id), ...dadosValidos })
+                        .then(result =>{
+                            setIsLoading(false);
 
+                            if(result instanceof Error)
+                                alert(result.message);
+                            else{
+                                if(ehSalvarFechar())
+                                    navigate('/pessoas');
+                            }
+                        });
+                }
+            })
+            .catch((errors: yup.ValidationError) => {
+                const validationErrors: IVFormErrors = {};
 
+                errors.inner.forEach(error => {
+                    if(!error.path) return;
+
+                    validationErrors[error.path] = error.message;
+                });
+                formRef.current?.setErrors(validationErrors);
+            });
     };
 
     const handleApagar = (id: number) => {
@@ -93,8 +125,8 @@ export const DetalhePessoa: React.FC = () => {
                     mostrarBotaoNovo={id !== 'inserir'}
                     mostrarBotaoApagar={id !== 'inserir'}
 
-                    aoClicarEmSalvar={() => formRef.current?.submitForm()}
-                    aoClicarEmSalvarFechar={() => formRef.current?.submitForm()}
+                    aoClicarEmSalvar={salvar}
+                    aoClicarEmSalvarFechar={salvarFechar}
                     aoClicarEmApagar={() => handleApagar(Number(id))}
                     aoClicarEmNovo={() => navigate('/pessoas/detalhe/inserir')}
                     aoClicarEmVoltar={() => navigate('/pessoas')}
@@ -102,7 +134,7 @@ export const DetalhePessoa: React.FC = () => {
             }
         >
 
-            <Form ref={formRef} onSubmit={handleSalvar}>
+            <VForm ref={formRef} onSubmit={handleSalvar}>
                 <Box
                     margin={1}
                     display='flex'
@@ -154,7 +186,7 @@ export const DetalhePessoa: React.FC = () => {
                         </Grid>
                     </Grid>
                 </Box>
-            </Form>
+            </VForm>
         </LayoutBase>
     );
 };

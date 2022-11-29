@@ -4,3 +4,5 @@ export * from './barra-ferramentas';
 
 export * from './Pessoa';
 export * from './Theme';
+
+export * from './Form';
