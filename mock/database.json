@@ -104,5 +104,8 @@
       "descricao": "Guarulhos",
       "id": 3
     }
-  ]
+  ],
+  "auth":{
+    "accessToken": "aaaaaaaaaa.bbbbbbbbbb.cccccccccc"
+  }
 }

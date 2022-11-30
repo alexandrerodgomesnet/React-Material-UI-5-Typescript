@@ -21,4 +21,5 @@ export const Environment = {
     ERRO_AO_CRIAR: 'Erro ao criar o registro...',
     ERRO_AO_ATUALIZAR: 'Erro ao atualizar o registro...',
     ERRO_AO_EXCLUIR: 'Erro ao excluir o registro...',
+    ERRO_AUTH_LOGIN: 'Erro ao logar na aplicação.'
 };
