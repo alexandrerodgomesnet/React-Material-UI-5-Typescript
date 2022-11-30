@@ -1,4 +1,5 @@
 export const Environment = {
+    LOCAL_STORAGE_KEY_ACCESS_TOKEN: 'APP_ACCESS_TOKEN',
     /**
      * Define a quantidade de linhas a ser carregada por padrão mas listagens...
      */
