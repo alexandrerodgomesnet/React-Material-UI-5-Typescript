@@ -8,6 +8,7 @@ import { IFormPessoa, IVFormErrors } from '../../shared/interfaces';
 import { useVForm } from '../../shared/hooks';
 import * as yup from 'yup';
 import { PessoaService } from '../../shared/services/api/pessoa/PessoaService';
+import { AutoCompleteCidade } from './components/AutoCompleteCidade';
 
 export const DetalhePessoa: React.FC = () => {
     const { id = 'inserir'} = useParams<'id'>();
@@ -46,7 +47,7 @@ export const DetalhePessoa: React.FC = () => {
             formRef.current?.setData({
                 nomeCompleto: '',
                 email: '',
-                cidadeId: ''
+                cidadeId: undefined
             });
         }
     }, [id]);
@@ -90,6 +91,7 @@ export const DetalhePessoa: React.FC = () => {
                 }
             })
             .catch((errors: yup.ValidationError) => {
+                setIsLoading(false);
                 const validationErrors: IVFormErrors = {};
 
                 errors.inner.forEach(error => {
@@ -176,12 +178,7 @@ export const DetalhePessoa: React.FC = () => {
                         </Grid>
                         <Grid container item direction='row' spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                                <VTextField
-                                    fullWidth
-                                    label='Cidade'
-                                    name='cidadeId'
-                                    disabled={isLoading}
-                                />
+                                <AutoCompleteCidade isExternalLoading={isLoading} />
                             </Grid>
                         </Grid>
                     </Grid>

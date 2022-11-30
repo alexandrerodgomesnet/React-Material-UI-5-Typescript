@@ -84,7 +84,7 @@ export const ListagemCidades: React.FC = () => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Ações</TableCell>
+                            <TableCell width={100}>Ações</TableCell>
                             <TableCell>Descrição</TableCell>
                         </TableRow>
                     </TableHead>

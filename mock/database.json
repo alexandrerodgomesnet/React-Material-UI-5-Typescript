@@ -2,21 +2,21 @@
   "pessoas": [
     {
       "id": 1,
+      "nomeCompleto": "João da SIlva",
       "email": "joaodasilva@email.com.br",
-      "cidadeId": 1,
-      "nomeCompleto": "João da SIlva"
+      "cidadeId": 3
     },
     {
       "id": 3,
+      "nomeCompleto": "Ana Gonçalves",
       "email": "anagoncalves@email.com.br",
-      "cidadeId": 1,
-      "nomeCompleto": "Ana Gonçalves"
+      "cidadeId": 2
     },
     {
       "id": 4,
+      "nomeCompleto": "Luis de Souza",
       "email": "luissouza@email.com.br",
-      "cidadeId": 1,
-      "nomeCompleto": "Luis de Souza"
+      "cidadeId": 3
     },
     {
       "id": 5,
@@ -99,6 +99,10 @@
     {
       "descricao": "Arujá",
       "id": 2
+    },
+    {
+      "descricao": "Guarulhos",
+      "id": 3
     }
   ]
 }
