@@ -2,7 +2,7 @@ import { Avatar, Box, Divider, Drawer, Icon, List,
     ListItemButton, ListItemIcon, ListItemText, useMediaQuery,
     useTheme } from '@mui/material';
 
-import { UseDrawerContext, UseAppThemeContext } from '../../context';
+import { UseDrawerContext, UseAppThemeContext, useAuthContext } from '../../context';
 import { IAppDrawerProviderProps } from '../../interfaces';
 import { ListItemLink } from './ListItemLink';
 
@@ -13,6 +13,7 @@ export const MenuLateral: React.FC<IAppDrawerProviderProps> = ({ children }) => 
 
     const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = UseDrawerContext();
     const { toggleTheme } = UseAppThemeContext();
+    const { logout } = useAuthContext();
     return (
         <>
             <Drawer open={isDrawerOpen} variant={ smDown ?  'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
@@ -44,6 +45,12 @@ export const MenuLateral: React.FC<IAppDrawerProviderProps> = ({ children }) => 
                                     <Icon>dark_mode</Icon>
                                 </ListItemIcon>
                                 <ListItemText primary='Alterar Tema'></ListItemText>
+                            </ListItemButton>
+                            <ListItemButton onClick={logout}>
+                                <ListItemIcon>
+                                    <Icon>logout</Icon>
+                                </ListItemIcon>
+                                <ListItemText primary='Sair'></ListItemText>
                             </ListItemButton>
                         </List>
                     </Box>
